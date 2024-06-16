@@ -39,7 +39,7 @@
     #define S_ISDIR(m) (((m) & S_IFMT) == S_IFDIR)
 #endif
 
-#if !defined(S_ISREG) 
+#if !defined(S_ISREG)
     #define S_ISREG(m) (((m) & S_IFMT) == S_IFREG)
 #endif
 
@@ -561,7 +561,7 @@ static option options[] = {
     { 'R', NULL, OPT_BOOL|OPT_DEPRECATED,  "Generate relocatable code (deprecated)" , &relocate, NULL, 0},
     { 0, NULL, OPT_HEADER, "Appmake options:", NULL, NULL, 0 },
     { 0, "Cz", OPT_FUNCTION,  "Add an option to appmake" , &appmakeargs, AddToArgs, 0},
-   
+
     { 0, "", OPT_HEADER, "Misc options:", NULL, NULL, 0 },
     { 0, "g", OPT_FUNCTION|OPT_INCLUDE_OPT,  "Generate a global defc file of the final executable (-g -gp -gpf:filename)" , &globaldefrefile, GlobalDefc, 0},
     { 0, "alias", OPT_FUNCTION,  "Define a command line alias" , NULL, Alias, 0},
@@ -998,7 +998,7 @@ int main(int argc, char **argv)
     find_zcc_config_fileFile(argv[0], configuration, config_filename, sizeof(config_filename));
     cfg_path = zdirname(strdup(config_filename));
     parse_configfile(config_filename);
-    
+
 
     /* Now, parse the default options list */
     if (c_options != NULL) {
@@ -1032,7 +1032,7 @@ int main(int argc, char **argv)
             add_file_to_process(aa, 1);
         }
     }
-    processing_user_command_line_arg = 0; 
+    processing_user_command_line_arg = 0;
 
     if (c_print_specs) {
         print_specs();
@@ -1327,16 +1327,16 @@ int main(int argc, char **argv)
                 exit(1);
             }
             if ( c_copy_m4_processed_files ) {
-                /* Write processed file to original source location immediately */		
-                 ptr = stripsuffix(original_filenames[i], ".m4");		
-                 if (copy_file(filelist[i], "", ptr, "")) {		
-                     fprintf(stderr, "Couldn't write output file %s\n", ptr);		
-                     exit(1);		
-                 }		
-                 /* Copied file becomes the new original file */		
-                 free(original_filenames[i]);		
-                 free(filelist[i]);		
-                 original_filenames[i] = ptr;		
+                /* Write processed file to original source location immediately */
+                 ptr = stripsuffix(original_filenames[i], ".m4");
+                 if (copy_file(filelist[i], "", ptr, "")) {
+                     fprintf(stderr, "Couldn't write output file %s\n", ptr);
+                     exit(1);
+                 }
+                 /* Copied file becomes the new original file */
+                 free(original_filenames[i]);
+                 free(filelist[i]);
+                 original_filenames[i] = ptr;
                  filelist[i] = muststrdup(ptr);
             }
             /* No more processing for .h and .inc files */
@@ -1605,9 +1605,9 @@ int main(int argc, char **argv)
                 else
                     q = original_filenames[i];
 
-                snprintf(tmp, sizeof(tmp) - 3, 
+                snprintf(tmp, sizeof(tmp) - 3,
 						 "MODULE %s%s\n"
-                         "LINE 0, \"%s\"\n\n", 
+                         "LINE 0, \"%s\"\n\n",
 						isdigit(*q) ? "_" : "", q, original_filenames[i]);
 
                 /* change non-alnum chars in module name to underscore */
@@ -1756,7 +1756,7 @@ int main(int argc, char **argv)
             fprintf(stderr, "Cannot create global defc file\n");
             status = 1;
         }
-		
+
 
         if (lston && copy_file(c_crt0, ".lis", filenamebuf, ".lis")) {
             fprintf(stderr, "Cannot copy crt0 list file\n");
@@ -1786,7 +1786,7 @@ int main(int argc, char **argv)
 
         exit(status);
     }
-    
+
     exit(0);    /* If this point is reached, all went well */
 }
 
@@ -2265,6 +2265,7 @@ static char *expand_macros(char *arg)
     }
 
     nval = replace_str(value, "DESTDIR", c_install_dir);
+
     free(value);
 
     return nval;
@@ -2451,13 +2452,13 @@ int is_path_absolute(char *p)
 static void cmd_line_to_tokens(char* line, const char *path, struct tokens_list_s** tokens)
 {
     char* p;
-    
+
     while (*line && isspace(*line))
         line++;
 
     if ( *line == ';' || *line == '#')
         return;
-    
+
     p = strtok(line, " \r\n\t");
 
     while (p != NULL)
@@ -2532,7 +2533,7 @@ void add_file_to_process(char *filename, char process_extension)
     char *p;
     struct stat tmp;
 
-    if (((p = strtok(filename, " \r\n\t")) != NULL) && *p) {
+    if (((p = strtok(filename, "\r\n\t")) != NULL) && *p) {
         p = strip_outer_quotes(p);
 
         if (*p == '@') {
@@ -2714,7 +2715,7 @@ void parse_cmdline_arg(char *arg)
     if ( option_parse(&options[0], 2, &tempargv[0]) == 0 ) {
         return;
     }
-   
+
     for ( i = 0; i < aliases_num; i+=2 ) {
         if ( strcmp(arg, aliases[i]) == 0 ) {
             parse_option(muststrdup(aliases[i+1]));
@@ -3067,7 +3068,7 @@ void write_zcc_defined(char *name, int value, int export)
 void PragmaNeed(option *arg, char *val)
 {
     char *ptr = val;
-    
+
     add_zccopt("\nIF !NEED_%s\n", ptr);
     add_zccopt("\tDEFINE\tNEED_%s\n", ptr);
     add_zccopt("ENDIF\n\n");
@@ -3180,7 +3181,7 @@ void copy_output_files_to_destdir(char *suffix, int die_on_fail)
                         exit(1);
                     }
                 }
-            } 
+            }
 
             free(ptr);
         }
