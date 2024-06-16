@@ -486,17 +486,26 @@ EXTERN asm_sp1_GetUpdateStruct, l_jpix
 
 .codeTransparent
 
+   ; first check if in bounds
+   
+   ld a,b
+   cp (iy+2)
+   jr nc, codeRight
+   ld a,c
+   cp (iy+3)
+   jr nc, codeRight
+   
    ; are we invalidating?
    
    bit 0,e
-   jp z, codeRight
-   
-   ; invalidate the char
-   
    exx
+   jr z, noinvalidation20
+
+   ; invalidate the char
+
    ld a,(de)
    xor $80
-   jp p, noinvalidation20    ; if already invalidated, skip
+   jp p, noinvalidation20      ; if already invalidated, skip
    ld (de),a   
    ld (hl),d
    inc hl
@@ -506,11 +515,18 @@ EXTERN asm_sp1_GetUpdateStruct, l_jpix
 
 .noinvalidation20
    
+   ex de,hl
+   inc hl
+   ld a,b
+   and (hl)                  ; do attr mask
+   or c
+   ld (hl),a                 ; store bgnd colour
+   dec hl
+   ex de,hl
    exx
    jp codeRight
 
 .printable                   ; a = tile#
-
    ex af,af
 
    ; first check if in bounds
