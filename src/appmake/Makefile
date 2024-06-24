@@ -12,10 +12,10 @@ endif
 
 CC			?= gcc
 CFLAGS		+= -Wall -std=gnu11 -MMD -pedantic -I../common
-LDFLAGS     += -lgmp
+#LDFLAGS     += -lgmp
 INSTALL 	?= install
 
-SRCS 		:= $(wildcard *.c) ../common/dirname.c
+SRCS 		:= $(filter-out ti8xk.c, $(wildcard *.c)) ../common/dirname.c
 
 OBJS_ALL	:= $(SRCS:.c=.o)
 OBJS		:= $(OBJS_ALL:$(PROJ).o=)

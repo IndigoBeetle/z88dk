@@ -27,7 +27,7 @@
 #endif
 
 #ifndef __NORETURN
-#define __NORETURN 
+#define __NORETURN
 #endif
 
 #include "dirname.h"
@@ -238,7 +238,8 @@ extern option_t  svi_options[];
 extern int       tixx_exec(char *target);
 extern option_t  tixx_options[];
 
-#ifndef _MSC_VER
+//#ifndef _MSC_VER
+#if 0
 extern int       ti8xk_exec(char *target);
 extern option_t  ti8xk_options[];
 #else
@@ -620,7 +621,7 @@ struct {
       "Generates an elf file for the z88 OZ5 shell",
       NULL,
       z88elf_exec,     z88elf_options },
-    { "shellmak",   "z88shell", "(C) 2002,2003 Dominic Morris",   
+    { "shellmak",   "z88shell", "(C) 2002,2003 Dominic Morris",
       "Patches the header to ensure that the program is recognised by the shell",
       NULL,
       z88shell_exec,z88shell_options },
@@ -628,13 +629,13 @@ struct {
       "Prapares a .TAP file for the Robotron Z9001, KC85/1, KC87",
       NULL,
       z9001_exec,     z9001_options },
-    { "bin2tap",  "zx",  "(C) 2000,2003,2017 Morris, Bodrato, Albrecht", 
+    { "bin2tap",  "zx",  "(C) 2000,2003,2017 Morris, Bodrato, Albrecht",
       "Generates a .TAP file complete with BASIC header, optional WAV file\n"
       "Generates 48k/128k SNA Snapshots from binary files\n"
       "Generates ESXDOS dot commands",
       NULL,
       zx_exec,      zx_options },
-    { "bin2p",    "zx81",     "(C) 2000 Stefano Bodrato",                         
+    { "bin2p",    "zx81",     "(C) 2000 Stefano Bodrato",
       "Generates a .P file suitable for use by emulators, optional WAV file",
       NULL,
       zx81_exec,    zx81_options },
